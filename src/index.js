@@ -1,31 +1,33 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+
 import './style.css';
-import { FormGroup, FormControl, InputGroup, Glyphicon } from 'react-bootstrap';
+
+import Profile from './components/Profile';
+import SearchForm from './components/SearchForm';
+import Gallery from './components/Gallery';
 
 class App extends Component {
+  state = {
+    artist: null,
+    tracks: []
+  }
+
+  setArtist = (artist) => {
+    this.setState({ artist });
+  }
+
+  setTopTracks = (tracks) => {
+    this.setState({ tracks });
+  }
+
   render() {
     return (
       <div className="App container">
         <div className="Title">Music Master</div>
-        <FormGroup>
-          <InputGroup>
-            <FormControl
-              type="text"
-              placeholder="Search for an Artist"
-            />
-            <InputGroup.Addon>
-              <Glyphicon glyph="search" />
-            </InputGroup.Addon>
-          </InputGroup>
-        </FormGroup>
-        <div className="Profile">
-          <div>Artist Picture</div>
-          <div>Artist Name</div>
-        </div>
-        <div className="Gallery">
-          Gallery
-        </div>
+        <SearchForm setArtist={this.setArtist} setTopTracks={this.setTopTracks} />
+        <Profile artist={this.state.artist} />
+        <Gallery tracks={this.state.tracks} />
       </div>
     );
   }
